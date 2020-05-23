@@ -1,0 +1,5 @@
+$router->get('/{{models}}','Api\{{Model}}Controller@index');
+$router->get('/{{models}}/{id}','Api\{{Model}}Controller@show');
+$router->post('/{{models}}','Api\{{Model}}Controller@store');
+$router->put('/{{models}}/{id}','Api\{{Model}}Controller@update');
+$router->delete('/{{models}}/{id}','Api\{{Model}}Controller@destroy');

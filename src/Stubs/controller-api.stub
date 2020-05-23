@@ -1,0 +1,60 @@
+<?php namespace {{namespace}}Http\Controllers\Api;
+
+use {{namespace}}Http\Controllers\Controller;
+use {{namespace}}Http\Requests\Store{{Model}};
+use {{namespace}}Services\{{Model}} as {{Model}}Service;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
+class {{Model}}Controller extends Controller{
+    protected ${{model}}Service;
+
+    public function __construct({{Model}}Service ${{model}}Service)
+    {
+         $this->{{model}}Service = ${{model}}Service;
+    }
+
+    public function index(){
+        try {
+            return $this->{{model}}Service->all();
+        } catch (\Exception $e) {
+            $errors = [ 'message' => $e->getMessage() ];
+            throw new HttpResponseException(response()->json($errors, $e->getCode() == 0 ? 500: $e->getCode()));
+        }
+    }
+
+    public function store(Store{{Model}} $request){
+        try {
+            return $this->{{model}}Service->store($request->all());
+        } catch (\Exception $e) {
+            $errors = [ 'message' => $e->getCode() == 0 ? 'The record could not be created, please try again later.': $e->getMessage() ];
+            throw new HttpResponseException(response()->json($errors, $e->getCode() == 0 ? 500: $e->getCode()));
+        }
+    }
+
+    public function update(Store{{Model}} $request, $id){
+        try {
+            return $this->{{model}}Service->update($request-> all(), $id);
+        } catch (\Exception $e) {
+            $errors = [ 'message' => $e->getCode() == 0 ? 'The record could not be updated, please try again later.': $e->getMessage() ];
+            throw new HttpResponseException(response()->json($errors, $e->getCode() == 0 ? 500: $e->getCode()));
+        }
+    }
+
+    public function destroy($id){
+        try {
+            return $this->{{model}}Service->delete($id);
+        } catch (\Exception $e) {
+            $errors = [ 'message' => $e->getCode() == 0 ? 'The record could not be deleted, please try again later.': $e->getMessage() ];
+            throw new HttpResponseException(response()->json($errors, $e->getCode() == 0 ? 500: $e->getCode()));
+        }
+    }
+
+    public function show($id){
+        try {
+            return $this->{{model}}Service->find($id);
+        } catch (\Exception $e) {
+            $errors = [ 'message' => $e->getMessage() ];
+            throw new HttpResponseException(response()->json($errors, $e->getCode() == 0 ? 500: $e->getCode()));
+        }
+    }
+}
