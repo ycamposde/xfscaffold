@@ -4,7 +4,7 @@
 ### Step 1: Install Through Composer
 
 ```
-composer require ycamposde/xfscaffold:dev-master --dev
+composer require ycamposde/xfscaffold --dev
 ```
 ##### add:
 ```
